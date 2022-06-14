@@ -9,7 +9,7 @@
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="" aria-describedby="search-button">
+          <input type="text" name="keyword" class="form-control" value="{{keyword}}" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -19,10 +19,18 @@
   </div>
 </div>
 
+
+
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
+
+      {{#if notFound}}
+       <div class="alert alert-danger mt-3 mx-auto" role="alert">
+        找不到符合條件的餐廳，請重新輸入
+       </div>
+      {{/if}}
       <div class="card-columns">
            {{#each restaurants}}
         <a href="/restaurants/{{this.id}}" class="text-secondary">

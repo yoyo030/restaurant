@@ -22,11 +22,13 @@ app.get(`/restaurants/:id`, (req, res) => {
 })
 
 app.get(`/search`, (req, res) => {  
-  const keyword = req.query.keyword
+  const originalKeyword = req.query.keyword
+  const keyword = req.query.keyword.toString().trim().toLocaleLowerCase()
   const restaurants = restaurantList.results.filter(item => {
     return (item.name.toLocaleLowerCase().includes(keyword)||item.name_en.toLocaleLowerCase().includes(keyword)|| item.category.toLowerCase().includes(keyword))
   })
-  res.render('index',{restaurants})
+  const notFound = restaurants.length ? false : true
+  res.render('index',{restaurants, keyword: originalKeyword, notFound })
 })
 
 // start and listen on the Express server
